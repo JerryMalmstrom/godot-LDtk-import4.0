@@ -1,8 +1,12 @@
-tool
-extends Reference
+@tool
+@extends Reference
 
 
-var map_data setget _set_map_data
+var map_data:
+	set(value):
+		_set_map_data(value)
+	get:
+		return value
 
 
 #setget mapdata from filepath.
@@ -13,8 +17,7 @@ func _set_map_data(filepath):
 
 #get LDtk file as JSON.
 func load_LDtk_file(filepath):
-	var json_file = File.new()
-	json_file.open(filepath, File.READ)
+	var json_file = FileAccess.open(filepath, File.READ)
 	var json = JSON.parse(json_file.get_as_text()).result
 	json_file.close()
 
@@ -49,11 +52,11 @@ func new_entity(entity_data, options):
 				if field.__identifier == 'NodeType' and field.__type == 'String':
 					match field.__value:
 						'Position2D':
-							new_entity = Position2D.new()
+							new_entity = Marker2D.new()
 						'Area2D':
 							new_entity = Area2D.new()
 						'KinematicBody2D':
-							new_entity = KinematicBody2D.new()
+							new_entity = CharacterBody2D.new()
 						'RigidBody2D':
 							new_entity = RigidBody2D.new()
 						'StaticBody2D':
@@ -87,7 +90,7 @@ func new_entity(entity_data, options):
 		return new_entity
 
 	match new_entity.get_class():
-		'Area2D', 'KinematicBody2D', 'RigidBody2D', 'StaticBody2D':
+		'Area2D', 'CharacterBody2D', 'RigidBody2D', 'StaticBody2D':
 			var col_shape = new_rectangle_collision_shape(get_entity_size(entity_data.__identifier))
 			new_entity.add_child(col_shape)
 
