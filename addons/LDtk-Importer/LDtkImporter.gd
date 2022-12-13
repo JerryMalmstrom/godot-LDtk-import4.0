@@ -1,44 +1,44 @@
-tool
-extends EditorImportPlugin
+@tool
+@extends EditorImportPlugin
 
 
 enum Presets { PRESET_DEFAULT, PRESET_COLLISIONS }
 var LDtk = preload("LDtk.gd").new()
 
 
-func get_importer_name():
+func _get_importer_name():
 	return "LDtk.import"
 
 
-func get_visible_name():
+func _get_visible_name():
 	return "LDtk Scene"
 
 
-func get_priority():
+func _get_priority():
 	return 1
 
 
-func get_import_order():
+func _get_import_order():
 	return 100
 
 
-func get_resource_type():
+func _get_resource_type():
 	return "PackedScene"
 
 
-func get_recognized_extensions():
+func _get_recognized_extensions():
 	return ["ldtk"]
 
 
-func get_save_extension():
+func _get_save_extension():
 	return "tscn"
 
 
-func get_preset_count():
+func _get_preset_count():
 	return Presets.size()
 
 
-func get_preset_name(preset):
+func _get_preset_name(preset):
 	match preset:
 		Presets.PRESET_DEFAULT:
 			return "Default"
@@ -46,7 +46,7 @@ func get_preset_name(preset):
 			return "Import Collisions"
 
 
-func get_import_options(preset):
+func _get_import_options(preset):
 	return [
 		{
 			"name": "Import_Collisions",
@@ -75,11 +75,11 @@ func get_import_options(preset):
 	]
 
 
-func get_option_visibility(option, options):
+func _get_option_visibility(option, options):
 	return true
 
 
-func import(source_file, save_path, options, platform_v, r_gen_files):
+func _import(source_file, save_path, options, platform_v, r_gen_files):
 #load LDtk map
 	LDtk.map_data = source_file
 
