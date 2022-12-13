@@ -1,11 +1,9 @@
-tool
-extends EditorPlugin
-
+@tool
+@extends EditorPlugin
 
 var import_plugin = null
 
-
-func get_plugin_name():
+func _get_plugin_name():
 	return "LDtk Importer"
 
 
