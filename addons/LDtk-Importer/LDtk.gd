@@ -1,18 +1,13 @@
 @tool
-@extends Reference
+extends Reference
 
 
 var map_data:
-	set(value):
-		_set_map_data(value)
+	set(filepath):
+		if filepath is String:
+			map_data = load_LDtk_file(filepath)
 	get:
-		return value
-
-
-#setget mapdata from filepath.
-func _set_map_data(filepath):
-	if filepath is String:
-		map_data = load_LDtk_file(filepath)
+		return map_data
 
 
 #get LDtk file as JSON.
@@ -217,7 +212,6 @@ func coordId_to_gridCoords(coordId, gridWidth):
 	var gridX = coordId - (gridY * gridWidth)
 
 	return Vector2(gridX, gridY)
-
 
 #converts tileId to grid coordinates.
 func tileId_to_gridCoords(tileId, atlasGridWidth):
